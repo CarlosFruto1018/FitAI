@@ -227,11 +227,6 @@ export default function LoginPage() {
           <div className="flex flex-col lg:flex-row items-center gap-16">
             {/* Left text */}
             <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-emerald-400 text-xs font-semibold">Beta gratuita · Sin tarjeta</span>
-              </div>
-
               <h1 className="text-5xl lg:text-6xl font-black leading-[1.05] mb-6">
                 Registra tu gym
                 <br />
@@ -259,18 +254,6 @@ export default function LoginPage() {
                 </form>
               </div>
 
-              <div className="flex items-center gap-4 justify-center lg:justify-start">
-                {[
-                  "Sin instalación",
-                  "Datos privados",
-                  "Cancela cuando quieras",
-                ].map((t) => (
-                  <div key={t} className="flex items-center gap-1.5">
-                    <CheckCircle size={12} className="text-emerald-400 shrink-0" />
-                    <span className="text-slate-400 text-xs">{t}</span>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Right — phone mockup */}
@@ -280,22 +263,6 @@ export default function LoginPage() {
           </div>
         </div>
       </section>
-
-      {/* ── SOCIAL PROOF BAR ── */}
-      <div className="border-y border-white/5 bg-white/2">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12">
-          {[
-            { value: "+120", label: "atletas activos" },
-            { value: "5 seg", label: "promedio por set" },
-            { value: "3 modos", label: "voz, foto y texto" },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <span className="text-white font-black text-xl">{s.value}</span>
-              <span className="text-slate-500 text-sm ml-2">{s.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ── FEATURES ── */}
       <section className="max-w-6xl mx-auto px-6 py-20 lg:py-28">
@@ -346,81 +313,41 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="max-w-6xl mx-auto px-6 py-20 lg:py-28">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-black mb-2">Lo que dicen los usuarios</h2>
-          <p className="text-slate-400 text-sm">Beta gratuita · Feedback real</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            {
-              name: "Miguel R.",
-              role: "Powerlifter",
-              avatar: "M",
-              color: "bg-indigo-500",
-              text: "Me cambió la vida en el gym. Antes perdía 5 minutos buscando la app para anotar. Ahora digo «3 de 5 en peso muerto con 150» y listo.",
-            },
-            {
-              name: "Ana C.",
-              role: "CrossFitter",
-              avatar: "A",
-              color: "bg-rose-500",
-              text: "La función de foto es una locura. Saco foto al marcador del WOD y lo registra todo solo. Nunca había visto algo así.",
-            },
-            {
-              name: "Luis P.",
-              role: "Gym bro",
-              avatar: "L",
-              color: "bg-amber-500",
-              text: "Llevaba años buscando algo así. Simple, rápido, en español. Los PRs detectados automáticamente son un toque increíble.",
-            },
-          ].map((t) => (
-            <div key={t.name} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center`}>
-                  <span className="text-white text-sm font-bold">{t.avatar}</span>
-                </div>
-                <div>
-                  <p className="text-white text-sm font-semibold">{t.name}</p>
-                  <p className="text-slate-500 text-xs">{t.role}</p>
-                </div>
-                <div className="ml-auto flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-amber-400 text-xs">★</span>
-                  ))}
-                </div>
-              </div>
-              <p className="text-slate-400 text-sm leading-relaxed">"{t.text}"</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ── FINAL CTA / LOGIN ── */}
-      <section className="relative overflow-hidden border-t border-slate-800">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-indigo-500/5 pointer-events-none" />
-        <div className="max-w-lg mx-auto px-6 py-20 lg:py-28 text-center relative">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-emerald-500/30 mx-auto mb-6">
+      <section className="bg-white border-t border-slate-200">
+        <div className="max-w-lg mx-auto px-6 py-20 lg:py-28 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-xl shadow-emerald-500/20 mx-auto mb-6">
             <span className="text-white font-black text-xl">F</span>
           </div>
 
-          <h2 className="text-4xl font-black mb-4">
+          <h2 className="text-4xl font-black text-slate-900 mb-4">
             Empieza hoy.<br />
-            <span className="text-emerald-400">Es gratis.</span>
+            <span className="text-emerald-500">Es gratis.</span>
           </h2>
-          <p className="text-slate-400 mb-8 leading-relaxed">
+          <p className="text-slate-500 mb-8 leading-relaxed">
             Sin tarjeta de crédito. Sin instalación. En 10 segundos tienes tu cuenta lista y puedes registrar tu primera sesión.
           </p>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 flex flex-col gap-4">
-            <SignInButton />
+          <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-4">
+            <form
+              action={async () => {
+                "use server";
+                await signIn("google", { redirectTo: "/dashboard" });
+              }}
+            >
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-3 bg-slate-900 hover:bg-slate-700 text-white font-semibold py-4 px-8 rounded-2xl transition-all shadow-sm text-sm"
+              >
+                <GoogleIcon />
+                Continuar con Google
+              </button>
+            </form>
 
             <div className="flex items-center gap-3">
-              <div className="flex-1 h-px bg-slate-800" />
-              <span className="text-slate-600 text-xs">incluye</span>
-              <div className="flex-1 h-px bg-slate-800" />
+              <div className="flex-1 h-px bg-slate-200" />
+              <span className="text-slate-400 text-xs">incluye</span>
+              <div className="flex-1 h-px bg-slate-200" />
             </div>
 
             <div className="grid grid-cols-2 gap-2">
@@ -433,29 +360,29 @@ export default function LoginPage() {
                 "Sin anuncios",
               ].map((f) => (
                 <div key={f} className="flex items-center gap-2">
-                  <CheckCircle size={13} className="text-emerald-400 shrink-0" />
-                  <span className="text-slate-400 text-xs">{f}</span>
+                  <CheckCircle size={13} className="text-emerald-500 shrink-0" />
+                  <span className="text-slate-500 text-xs">{f}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <p className="text-slate-600 text-xs mt-6">
+          <p className="text-slate-400 text-xs mt-6">
             Al continuar aceptas los Términos de Servicio y Política de Privacidad.
           </p>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-slate-800">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+      <footer className="bg-white border-t border-slate-200">
+        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 rounded-md bg-emerald-500 flex items-center justify-center">
               <span className="text-white font-black text-[9px]">F</span>
             </div>
-            <span className="text-slate-500 text-xs">FitAI · 2026</span>
+            <span className="text-slate-500 text-xs font-medium">FitAI</span>
           </div>
-          <p className="text-slate-600 text-xs">Hecho con ❤️ para atletas</p>
+          <p className="text-slate-400 text-xs">© 2026 FitAI. Todos los derechos reservados.</p>
         </div>
       </footer>
     </div>
