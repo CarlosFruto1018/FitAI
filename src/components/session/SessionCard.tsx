@@ -1,3 +1,5 @@
+"use client";
+
 import { formatDate, formatDuration, formatWeight } from "@/lib/utils";
 import type { Session, WorkoutSet, Exercise } from "@/lib/db/schema";
 import { Dumbbell, Clock, ChevronRight } from "lucide-react";

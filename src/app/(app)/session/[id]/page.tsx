@@ -3,8 +3,8 @@ import { db } from "@/lib/db/client";
 import { sessions, workoutSets } from "@/lib/db/schema";
 import { eq, asc } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import { formatDate } from "@/lib/utils";
 import { ArrowLeft, Dumbbell, Hash, Weight, FileText } from "lucide-react";
+import { LocalDate } from "@/components/ui/LocalDate";
 import Link from "next/link";
 
 export default async function SessionDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -51,7 +51,7 @@ export default async function SessionDetailPage({ params }: { params: Promise<{ 
         </div>
         <div>
           <h1 className="text-xl font-black text-slate-900">Sesión</h1>
-          <p className="text-xs text-slate-400 mt-0.5">{formatDate(session.startedAt)}</p>
+          <LocalDate date={session.startedAt} className="text-xs text-slate-400 mt-0.5" />
         </div>
       </div>
 
