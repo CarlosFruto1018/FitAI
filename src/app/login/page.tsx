@@ -1,5 +1,6 @@
 import { signIn } from "@/lib/auth";
 import { Mic, Camera, TrendingUp, MessageCircle, Zap, Shield, CheckCircle } from "lucide-react";
+import { HeroSection } from "@/components/landing/HeroSection";
 
 const GoogleIcon = () => (
   <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -10,117 +11,6 @@ const GoogleIcon = () => (
   </svg>
 );
 
-function SignInButton() {
-  return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn("google", { redirectTo: "/dashboard" });
-      }}
-    >
-      <button
-        type="submit"
-        className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-semibold py-4 px-8 rounded-2xl transition-all shadow-lg text-sm"
-      >
-        <GoogleIcon />
-        Continuar con Google — es gratis
-      </button>
-    </form>
-  );
-}
-
-function AppMockup() {
-  return (
-    <div className="relative w-full max-w-xs mx-auto">
-      {/* Phone frame */}
-      <div className="relative bg-slate-900 rounded-[2.5rem] p-2 shadow-2xl shadow-black/50 ring-1 ring-white/10">
-        <div className="bg-slate-950 rounded-[2rem] overflow-hidden">
-          {/* Status bar */}
-          <div className="flex items-center justify-between px-5 pt-3 pb-1">
-            <span className="text-white text-[10px] font-medium">9:41</span>
-            <div className="w-20 h-4 bg-slate-900 rounded-full" />
-            <div className="flex gap-1 items-center">
-              <div className="w-3 h-2 bg-white/60 rounded-sm" />
-              <div className="w-1 h-1 bg-white/60 rounded-full" />
-            </div>
-          </div>
-
-          {/* App content */}
-          <div className="px-4 pb-6 pt-2 space-y-3">
-            {/* Header */}
-            <div className="flex items-center justify-between py-2">
-              <div>
-                <p className="text-slate-400 text-[10px]">Buenas noches</p>
-                <p className="text-white font-bold text-sm">Carlos 💪</p>
-              </div>
-              <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
-                <span className="text-white text-xs font-black">C</span>
-              </div>
-            </div>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { label: "Esta semana", value: "4 días" },
-                { label: "Volumen", value: "14.2k kg" },
-                { label: "Racha", value: "12 🔥" },
-              ].map((s) => (
-                <div key={s.label} className="bg-slate-800 rounded-xl p-2 text-center">
-                  <p className="text-white text-[11px] font-bold">{s.value}</p>
-                  <p className="text-slate-500 text-[8px] mt-0.5">{s.label}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Record input */}
-            <div className="bg-slate-800 rounded-2xl p-3">
-              <p className="text-slate-400 text-[9px] uppercase tracking-wide mb-2">Registrar ahora</p>
-              <div className="flex gap-1 bg-slate-700 rounded-xl p-1 mb-3">
-                {["Voz", "Foto", "Texto"].map((t, i) => (
-                  <div key={t} className={`flex-1 py-1 rounded-lg text-center text-[9px] font-medium ${i === 0 ? "bg-emerald-500 text-white" : "text-slate-400"}`}>
-                    {t}
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-center py-1">
-                <div className="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center shadow-lg shadow-red-500/40">
-                  <Mic size={14} className="text-white" />
-                </div>
-              </div>
-              <p className="text-center text-slate-500 text-[9px] mt-2">Escuchando...</p>
-            </div>
-
-            {/* Recent session */}
-            <div className="bg-slate-800 rounded-2xl p-3">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-white text-[11px] font-semibold">Última sesión</p>
-                <span className="text-emerald-400 text-[9px]">Hoy</span>
-              </div>
-              {["Press banca · 4×10 · 80kg", "Sentadilla · 3×8 · 100kg", "Peso muerto · 3×5 · 120kg"].map((e) => (
-                <div key={e} className="flex items-center gap-2 py-1 border-t border-slate-700/50 first:border-0">
-                  <div className="w-1 h-1 rounded-full bg-emerald-400 shrink-0" />
-                  <p className="text-slate-300 text-[9px]">{e}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* PR badge */}
-            <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-xl p-2.5 flex items-center gap-2">
-              <span className="text-lg">🏆</span>
-              <div>
-                <p className="text-amber-400 text-[10px] font-bold">¡Nuevo récord personal!</p>
-                <p className="text-slate-400 text-[9px]">Sentadilla · 105 kg</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Glow behind phone */}
-      <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-3xl -z-10 scale-75" />
-    </div>
-  );
-}
 
 const FEATURES = [
   {
@@ -218,51 +108,24 @@ export default function LoginPage() {
       </nav>
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden">
-        {/* Background glows */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-indigo-500/8 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto px-6 pt-20 pb-16 lg:pt-28 lg:pb-24">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            {/* Left text */}
-            <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-5xl lg:text-6xl font-black leading-[1.05] mb-6">
-                Registra tu gym
-                <br />
-                <span className="text-emerald-400">en 5 segundos.</span>
-              </h1>
-
-              <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
-                Habla, saca una foto o escribe. FitAI extrae tus series, pesos y reps con IA — y te muestra exactamente cómo progresas semana a semana.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
-                <form
-                  action={async () => {
-                    "use server";
-                    await signIn("google", { redirectTo: "/dashboard" });
-                  }}
-                >
-                  <button
-                    type="submit"
-                    className="flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-4 px-8 rounded-2xl transition-all shadow-xl text-sm w-full sm:w-auto"
-                  >
-                    <GoogleIcon />
-                    Empezar gratis con Google
-                  </button>
-                </form>
-              </div>
-
-            </div>
-
-            {/* Right — phone mockup */}
-            <div className="flex-shrink-0 w-full lg:w-auto">
-              <AppMockup />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection
+        signInButton={
+          <form
+            action={async () => {
+              "use server";
+              await signIn("google", { redirectTo: "/dashboard" });
+            }}
+          >
+            <button
+              type="submit"
+              className="flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-4 px-8 rounded-2xl transition-all shadow-xl text-sm w-full sm:w-auto"
+            >
+              <GoogleIcon />
+              Empezar gratis con Google
+            </button>
+          </form>
+        }
+      />
 
       {/* ── FEATURES ── */}
       <section className="max-w-6xl mx-auto px-6 py-20 lg:py-28">

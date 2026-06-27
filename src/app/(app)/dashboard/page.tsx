@@ -41,7 +41,15 @@ export default async function DashboardPage() {
   const weeklyProgress = Math.round((weekSessions.length / WEEKLY_GOAL) * 100);
   const remaining = Math.max(0, WEEKLY_GOAL - weekSessions.length);
 
-  const totalVolumeKg = recentSessions.reduce((acc, s) => acc + (s.totalVolumeKg ?? 0), 0);
+  const weekVolumeKg = weekSessions.reduce((acc, s) => acc + (s.totalVolumeKg ?? 0), 0);
+
+  // Días de la semana actual con sesión (0 = lunes, 6 = domingo)
+  const trainedDays = new Set(
+    weekSessions.map((s) => {
+      const dow = new Date(s.startedAt).getDay(); // 0=Dom, 1=Lun…
+      return dow === 0 ? 6 : dow - 1;             // Convertir a Lun=0, Dom=6
+    })
+  );
 
   const sortedDates = recentSessions
     .map((s) => format(new Date(s.startedAt), "yyyy-MM-dd"))
@@ -117,9 +125,9 @@ export default async function DashboardPage() {
           <div className="flex-1 flex flex-col items-center gap-1 py-3">
             <Dumbbell size={14} className="text-emerald-400" />
             <p className="text-base font-black text-white leading-none">
-              {Math.round(totalVolumeKg).toLocaleString("es")}
+              {Math.round(weekVolumeKg).toLocaleString("es")}
             </p>
-            <p className="text-[10px] text-white/40">kg totales</p>
+            <p className="text-[10px] text-white/40">kg esta semana</p>
           </div>
           <div className="w-px bg-white/5" />
           <div className="flex-1 flex flex-col items-center gap-1 py-3">
@@ -137,6 +145,20 @@ export default async function DashboardPage() {
               </div>
             </>
           )}
+        </div>
+
+        {/* Franja semanal — días entrenados */}
+        <div className="relative mt-4 flex gap-1.5">
+          {["L", "M", "X", "J", "V", "S", "D"].map((day, i) => (
+            <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
+              <span className="text-[9px] font-medium text-white/30">{day}</span>
+              <div
+                className={`w-full h-1 rounded-full transition-colors ${
+                  trainedDays.has(i) ? "bg-emerald-400" : "bg-white/10"
+                }`}
+              />
+            </div>
+          ))}
         </div>
       </div>
 

@@ -26,7 +26,10 @@ export function SettingsClient({ profile, signOutAction }: Props) {
   const [saving, setSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"ok" | "error" | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
   const [deleting, setDeleting] = useState(false);
+
+  const canDelete = deleteConfirmText === "ELIMINAR";
 
   async function handleSave() {
     setSaving(true);
@@ -163,41 +166,57 @@ export function SettingsClient({ profile, signOutAction }: Props) {
       </form>
 
       {/* Danger zone */}
-      <section className="bg-white border border-red-100 rounded-2xl overflow-hidden shadow-sm">
-        <div className="flex items-center gap-2 px-4 pt-4 pb-3 border-b border-red-50">
-          <Trash2 size={14} className="text-red-400" />
-          <h2 className="text-sm font-semibold text-red-600">Zona peligrosa</h2>
+      <section className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="flex items-center gap-2 px-4 pt-4 pb-3 border-b border-slate-50">
+          <Trash2 size={14} className="text-slate-400" />
+          <h2 className="text-sm font-semibold text-slate-700">Eliminar cuenta</h2>
         </div>
         <div className="p-4 flex flex-col gap-3">
-          <p className="text-xs text-slate-500">
-            Eliminar tu cuenta borra permanentemente todos tus datos: sesiones, series, récords y perfil.
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Esto borra permanentemente tu cuenta y todos tus datos: sesiones, series, récords y perfil.
+            Esta acción no se puede deshacer.
           </p>
 
           {!showDeleteConfirm ? (
             <button
               onClick={() => setShowDeleteConfirm(true)}
-              className="w-full py-2.5 rounded-xl border border-red-200 text-red-500 text-sm font-medium hover:bg-red-50 transition-colors"
+              className="w-full py-2.5 rounded-xl border border-slate-200 text-slate-500 text-sm font-medium hover:border-red-200 hover:text-red-500 hover:bg-red-50/50 transition-colors"
             >
               Eliminar mi cuenta
             </button>
           ) : (
-            <div className="flex flex-col gap-2">
-              <p className="text-xs text-red-500 font-medium text-center">
-                ¿Estás seguro? Esta acción no se puede deshacer.
-              </p>
+            <div className="flex flex-col gap-3">
+              <div className="bg-red-50 border border-red-100 rounded-xl p-3 flex flex-col gap-1.5">
+                <p className="text-xs font-semibold text-red-700">Confirma que quieres borrar todo</p>
+                <p className="text-xs text-red-500/80">
+                  Escribe{" "}
+                  <span className="font-mono font-bold tracking-wider">ELIMINAR</span>{" "}
+                  en mayúsculas para continuar.
+                </p>
+              </div>
+
+              <input
+                type="text"
+                value={deleteConfirmText}
+                onChange={(e) => setDeleteConfirmText(e.target.value)}
+                placeholder="ELIMINAR"
+                autoComplete="off"
+                className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-red-300 focus:border-transparent font-mono tracking-widest transition-all"
+              />
+
               <div className="flex gap-2">
                 <button
-                  onClick={() => setShowDeleteConfirm(false)}
+                  onClick={() => { setShowDeleteConfirm(false); setDeleteConfirmText(""); }}
                   className="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-700 text-sm font-medium transition-colors hover:bg-slate-200"
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={handleDelete}
-                  disabled={deleting}
-                  className="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-colors disabled:opacity-40"
+                  disabled={!canDelete || deleting}
+                  className="flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-red-500 hover:bg-red-600 text-white disabled:bg-slate-200 disabled:text-slate-400"
                 >
-                  {deleting ? "Eliminando..." : "Sí, eliminar"}
+                  {deleting ? "Eliminando..." : "Eliminar cuenta"}
                 </button>
               </div>
             </div>
