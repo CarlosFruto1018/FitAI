@@ -52,7 +52,7 @@ export function AudioRecorder({ onRecorded, disabled }: AudioRecorderProps) {
         )}
         <button
           onClick={handleToggle}
-          disabled={disabled || state === "recording"}
+          disabled={disabled}
           className={cn(
             "relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-400",
             isRecording
